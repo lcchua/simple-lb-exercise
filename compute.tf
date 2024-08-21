@@ -55,9 +55,13 @@ resource "aws_instance" "lcchua-tf-ec2" {
   }
 }
 
-output "ec2" {
-  description = "17b stw EC2 server"
-  value       = aws_instance.lcchua-tf-ec2.id
+output "ec2_1" {
+  description = "17b stw EC2 server 1"
+  value       = aws_instance.lcchua-tf-ec2[0].id
+}
+output "ec2_2" {
+  description = "17c stw EC2 server 2"
+  value       = aws_instance.lcchua-tf-ec2[1].id
 }
 output "user-data" {
   description = "20 stw user data"
