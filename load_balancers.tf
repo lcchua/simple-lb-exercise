@@ -137,8 +137,13 @@ output "load-balancer-listener-rule_2" {
   value       = aws_lb_listener_rule.lcchua-tf-lb-listener-rule_2
 }
 
-resource "aws_route53_record" "lcchua-tf-aws_route53_record" {
-  zone_id = aws_route53_record.zone_id
+#============ ROUTE53 DNS =============
+
+resource "aws_route53_zone" "main" {
+  name = "sctp-sandbox.com"
+}
+resource "aws_route53_record" "lcchua-tf-route53_record" {
+  zone_id = aws_route53_zone.main.zone_id
   name     = "lcchua-flaskapp"
   type     = "CNAME"
   ttl      = 300
@@ -146,5 +151,5 @@ resource "aws_route53_record" "lcchua-tf-aws_route53_record" {
 }
 output "route53-record" {
   description = "24 stw route53 dns cname record"
-  value       = aws_route53_record.lcchua-tf-aws_route53_record.name
+  value       = aws_route53_record.lcchua-tf-route53_record.name
 }
