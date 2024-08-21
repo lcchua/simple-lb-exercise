@@ -138,9 +138,13 @@ output "load-balancer-listener-rule_2" {
 }
 
 resource "aws_route53_record" "lcchua-tf-aws_route53_record" {
-  zone_id = aws_route53_zone.primary.zone_id
+  zone_id = aws_route53_record.zone_id
   name     = "lcchua-flaskapp"
   type     = "CNAME"
   ttl      = 300
-  records  = [aws_lb.application_load_balancer.dns_name]
+  records  = [aws_lb.lcchua-tf-lb.dns_name]
+}
+output "route53-record" {
+  description = "24 stw route53 dns cname record"
+  value       = aws_route53_record.lcchua-tf-aws_route53_record.name
 }
