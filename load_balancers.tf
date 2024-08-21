@@ -136,3 +136,11 @@ output "load-balancer-listener-rule_2" {
   description = "23b stw lb listener rule 12"
   value       = aws_lb_listener_rule.lcchua-tf-lb-listener-rule_2
 }
+
+resource "aws_route53_record" "lcchua-tf-aws_route53_record" {
+  zone_id = aws_route53_zone.primary.zone_id
+  name     = "lcchua-flaskapp"
+  type     = "CNAME"
+  ttl      = 300
+  records  = [aws_lb.application_load_balancer.dns_name]
+}
