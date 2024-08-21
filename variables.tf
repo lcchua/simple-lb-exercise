@@ -34,3 +34,8 @@ variable "az2" {
   type        = string
   default     = "us-east-1e"
 }
+
+variable "instance_names" {
+  type    = list(string)
+  default = ["stw-ec2-server-1", "stw-ec2-server-2"]
+}

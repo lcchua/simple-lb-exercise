@@ -51,7 +51,7 @@ resource "aws_instance" "lcchua-tf-ec2" {
 
   tags = {
     group = var.stack_name
-    Name  = "stw-ec2-server"
+    Name  = var.instance_names[count.index]
   }
 }
 
