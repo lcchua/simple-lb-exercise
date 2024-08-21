@@ -1,3 +1,5 @@
+#============ TARGET GROUP =============
+
 resource "aws_lb_target_group" "lcchua-tf-tg" {
   name        = "lcchua-flaskapp-tg"
   port        = 80
@@ -10,9 +12,31 @@ resource "aws_lb_target_group" "lcchua-tf-tg" {
   }
 }
 output "target-group" {
-  description = "21 stw target group"
+  description = "21a stw target group"
   value       = aws_lb_target_group.lcchua-tf-tg.id
 }
+
+# Register targets
+resource "aws_lb_target_group_attachment" "lcchua-tf-tg-registered-target_1" {
+  target_group_arn = aws_lb_target_group.lcchua-tf-tg.arn
+  target_id        = aws_instance.lcchua-tf-ec2[0].id
+  port             = 80
+}
+resource "aws_lb_target_group_attachment" "lcchua-tf-tg-registered-target_2" {
+  target_group_arn = aws_lb_target_group.lcchua-tf-tg.arn
+  target_id        = aws_instance.lcchua-tf-ec2[1].id
+  port             = 80
+}
+output "target-group-registered-target_1" {
+  description = "21b stw target group registered targets"
+  value       = aws_instance.lcchua-tf-ec2[0].id
+}
+output "target-group-registered-target_2" {
+  description = "21c stw target group registered targets"
+  value       = aws_instance.lcchua-tf-ec2[1].id
+}
+
+#============ LOAD BALANCER =============
 
 resource "aws_lb" "lcchua-tf-lb" {
   name               = "lcchua-flaskapp-lb"
@@ -30,6 +54,8 @@ output "load-balancer" {
   description = "22 stw load balancer"
   value       = aws_lb.lcchua-tf-lb.id
 }
+
+#============ LB LISTENER & RULES =============
 
 resource "aws_lb_listener" "lcchua-tf-lb_listener" {
   load_balancer_arn = aws_lb.lcchua-tf-lb.arn
