@@ -18,8 +18,8 @@ resource "aws_lb" "lcchua-tf-lb" {
   name               = "lcchua-flaskapp-lb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.lcchua-tf-sg-allow-ssh-http-https]
-  subnets            = [aws_subnet.lcchua-tf-public-subnet-az1, aws_subnet.lcchua-tf-public-subnet-az2]
+  security_groups    = [aws_security_group.lcchua-tf-sg-allow-ssh-http-https.id]
+  subnets            = [aws_subnet.lcchua-tf-public-subnet-az1.id, aws_subnet.lcchua-tf-public-subnet-az2.id]
 
   tags = {
     group = var.stack_name
